@@ -1,0 +1,90 @@
+/* Order Button (JS/order-button.js)
+   Three states, one label visible at a time:
+     default  "Place Order"
+     .animate spinner + "Placing your order..." while a bar fills the button
+     .done    green, "Order Placed" with a tick */
+.order-btn {
+    position: relative;
+    width: 100%;
+    height: 3.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: 10px;
+    background: #0369a1;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    overflow: hidden;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.order-btn:hover:not(:disabled) {
+    background: #075985;
+}
+
+.order-btn:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.order-btn:focus-visible {
+    outline: 3px solid #38bdf8;
+    outline-offset: 3px;
+}
+
+/* Empty cart (the button is also disabled while placing and once done, but keeps its colour then) */
+.order-btn:disabled:not(.animate):not(.done) {
+    background: #cbd5e1;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
+.order-btn.animate,
+.order-btn.done {
+    cursor: default;
+}
+
+/* Progress bar: a lighter band that fills from left to right while the order is placed */
+.order-bar {
+    position: absolute;
+    inset: 0;
+    width: 0;
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.order-btn.animate .order-bar {
+    animation: order-fill 2s ease-in-out forwards;
+}
+
+@keyframes order-fill {
+    to { width: 100%; }
+}
+
+/* Labels sit on top of each other; only the one for the current state is shown */
+.order-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.25s, transform 0.25s;
+}
+
+.order-btn:not(.animate):not(.done) .default,
+.order-btn.animate .working,
+.order-btn.done .success {
+    opacity: 1;
+    transform: none;
+}
+
+.order-btn.done {
+    background: #15803d;
+}
+
+.order-btn.done .success i {
+    font-size: 1.2rem;
+}
