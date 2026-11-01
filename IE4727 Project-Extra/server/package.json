@@ -1,0 +1,19 @@
+{
+  "name": "quantum-gear-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Quantum Gear REST API (Node.js + Express), using the same MySQL database as the PHP version",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "mysql2": "^3.14.0",
+    "nodemailer": "^6.10.0"
+  }
+}

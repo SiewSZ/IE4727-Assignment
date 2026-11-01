@@ -1,0 +1,15 @@
+{
+  "name": "quantum-gear-extra",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Quantum Gear, Additional Version: React + Tailwind front end, Node.js + Express API, same MySQL database",
+  "scripts": {
+    "setup": "npm install && npm install --prefix server && npm install --prefix client",
+    "dev": "concurrently -n api,web -c blue,green \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "build": "npm run build --prefix client",
+    "start": "npm run build && npm start --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}

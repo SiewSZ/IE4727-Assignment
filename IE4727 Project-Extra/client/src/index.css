@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+/* Dark mode follows the "dark" class on <html> (set by the theme switch), not the system setting */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Brand colours, used as bg-brand-600, text-brand-700 ... */
+@theme {
+    --color-brand-50: #f0f9ff;
+    --color-brand-100: #e0f2fe;
+    --color-brand-300: #7dd3fc;
+    --color-brand-400: #38bdf8;
+    --color-brand-500: #0ea5e9;
+    --color-brand-600: #0284c7;
+    --color-brand-700: #0369a1;
+    --color-brand-800: #075985;
+    --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
+    }
+
+    /* A visible focus ring for keyboard users everywhere */
+    :focus-visible {
+        @apply outline-2 outline-offset-2 outline-brand-500;
+    }
+}
+
+/* Our own reusable classes (Tailwind 4: @utility, so they work with hover:, dark: and @apply) */
+@utility card {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900;
+}
+
+@utility btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+@utility btn-primary {
+    @apply btn bg-brand-700 text-white hover:bg-brand-800 dark:bg-brand-400 dark:text-slate-950 dark:hover:bg-brand-300;
+}
+
+@utility btn-ghost {
+    @apply btn border border-slate-300 bg-white text-slate-800 hover:border-brand-600 hover:text-brand-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-brand-400 dark:hover:text-brand-300;
+}
+
+@utility input {
+    @apply w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100;
+}
+
+@utility link {
+    @apply font-semibold text-brand-700 hover:underline dark:text-brand-300;
+}
+
+@utility muted {
+    @apply text-slate-600 dark:text-slate-400;
+}
+
+/* Product photos have white backgrounds, so their boxes stay white in dark mode too */
+@utility photo-box {
+    @apply flex items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-800;
+}
+
+/* Hide scrollbars on the sideways product rows (they still scroll by touch, wheel and arrows) */
+.no-scrollbar {
+    scrollbar-width: none;
+}
+
+/* Printing (invoices): plain white paper, whatever the theme */
+@media print {
+    body {
+        background: white !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
